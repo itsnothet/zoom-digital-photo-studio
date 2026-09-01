@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoom Digital Photo Studio | Photography Studio in Ahmedabad</title>
+<meta name="description" content="Zoom Digital Photo Studio in Ahmedabad offering passport and visa photos, wedding photography, event videography, professional photoshoots, photo frames, albums and product photography.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Zoom Digital Photo Studio | Photography Studio in Ahmedabad">
+<meta property="og:description" content="Professional photography and videography studio in Ahmedabad, Gujarat. Passport photos, weddings, events, portraits and product photography.">
+<meta property="og:type" content="business.business">
+<meta property="og:locale" content="en_IN">
+<meta property="og:image" content="assets/icons/favicon.svg">
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<!-- Local Business structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PhotographyBusiness",
+  "name": "Zoom Digital Photo Studio",
+  "telephone": "+919898485252",
+  "priceRange": "₹₹",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "111, Siddhi Darshan Apartments, 100 Feet Rd, opposite Seema Hall, Anand Nagar, Satellite",
+    "addressLocality": "Ahmedabad",
+    "addressRegion": "Gujarat",
+    "postalCode": "380015",
+    "addressCountry": "IN"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "bestRating": "5"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "10:00",
+      "closes": "20:30"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Sunday"],
+      "opens": "10:00",
+      "closes": "13:30"
+    }
+  ]
+}
+</script>
+
+<!-- Netlify Identity — required so invite/recovery email links (which open
+     at the site root) can complete login before redirecting to /admin. -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function (user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function () {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAVBAR ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#home" class="brand" aria-label="Zoom Digital Photo Studio — home">
+      <span class="brand-mark" id="brandMarkHeader" aria-hidden="true">
+        <svg viewBox="0 0 44 44" width="38" height="38">
+          <circle cx="22" cy="22" r="20.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="22" cy="22" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="22" cy="22" r="8.5" class="brand-mark-dot"/>
+        </svg>
+      </span>
+      <span class="brand-text" id="brandTextHeader">
+        <span class="brand-name">Zoom</span>
+        <span class="brand-sub">Digital Photo Studio</span>
+      </span>
+      <img class="brand-logo-img" id="brandLogoHeader" alt="Zoom Digital Photo Studio" style="display:none;">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+919898485252" class="btn btn-ghost header-only">Call Now</a>
+      <a href="https://wa.me/919898485252" class="btn btn-accent header-only" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <nav aria-label="Mobile">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="tel:+919898485252" class="btn btn-ghost-dark">Call Now</a>
+      <a href="https://wa.me/919898485252" class="btn btn-accent" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </nav>
+</div>
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-media" aria-hidden="true">
+      <div class="hero-photo hero-photo-main placeholder-photo" id="heroPhotoMain" data-label="Hero — main photograph"></div>
+      <div class="hero-photo hero-photo-side placeholder-photo" id="heroPhotoSide" data-label="Hero — side photograph"></div>
+    </div>
+    <div class="hero-scrim"></div>
+
+    <div class="hero-content">
+      <p class="hero-kicker">Photography &amp; videography studio in Ahmedabad</p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span>We capture moments.</span></span>
+        <span class="reveal-line"><span>You keep them <em>forever.</em></span></span>
+      </h1>
+      <p class="hero-copy reveal-fade">
+        Zoom Digital Photo Studio has been photographing Ahmedabad's weddings, events,
+        portraits and products with a steady, professional hand — so the pictures still
+        feel right years from now.
+      </p>
+      <div class="hero-actions reveal-fade">
+        <a href="tel:+919898485252" class="btn btn-accent btn-lg">Call Now</a>
+        <a href="https://wa.me/919898485252" class="btn btn-outline-light btn-lg" target="_blank" rel="noopener">WhatsApp Us</a>
+      </div>
+    </div>
+
+    <button class="scroll-cue" id="scrollCue" aria-label="Scroll to about section">
+      <span class="scroll-cue-line"></span>
+      <span class="scroll-cue-text">Scroll</span>
+    </button>
+  </section>
+
+  <!-- ============ TRUST / STATS ============ -->
+  <section class="stats" aria-label="Studio highlights">
+    <div class="stats-inner">
+      <div class="stat" data-value="4.8" data-decimals="1">
+        <span class="stat-number"><span class="stat-count">0.0</span><span class="stat-suffix">★</span></span>
+        <span class="stat-label">Google Rating</span>
+      </div>
+      <div class="stat stat-text">
+        <span class="stat-number stat-static">Ahmedabad</span>
+        <span class="stat-label">Our Location</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-media reveal-up">
+        <div class="about-photo placeholder-photo" id="aboutPhoto" data-label="Studio at work" aria-hidden="true">
+          <span class="placeholder-tag" id="aboutPhotoTag">Studio photo — replace with real image</span>
+        </div>
+        <div class="about-photo-accent" aria-hidden="true"></div>
+      </div>
+
+      <div class="about-copy">
+        <p class="section-eyebrow">About the studio</p>
+        <h2 class="section-title reveal-up">Steady, professional photography, every time</h2>
+        <p class="reveal-up">
+          Zoom Digital Photo Studio works with individuals, families, couples and
+          businesses across Ahmedabad — from a same-day passport photo to a full
+          wedding weekend. Every booking gets the same attention: careful lighting,
+          steady composition, and a final set of images the client is genuinely
+          happy to keep.
+        </p>
+        <p class="reveal-up">
+          The studio handles documentation photography, portraits, event coverage
+          and product photography for catalogues and websites, backed by in-house
+          printing, framing and album design — so a shoot doesn't end at the camera.
+        </p>
+        <ul class="about-points reveal-up">
+          <li>Consistent, professional quality on every shoot</li>
+          <li>In-house printing, framing and album design</li>
+          <li>Trusted locally — rated 4.8★ on Google</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="services" id="services">
+    <div class="section-head">
+      <p class="section-eyebrow">What we do</p>
+      <h2 class="section-title reveal-up">Services built around your occasion</h2>
+    </div>
+
+    <div class="services-grid">
+
+      <article class="service-card reveal-up">
+        <div class="service-media placeholder-photo" id="svcPassport" data-label="Passport" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Passport Photos</h3>
+          <p>Professional passport photographs prepared to official documentation standards.</p>
+        </div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-media placeholder-photo" id="svcVisa" data-label="Visa" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Visa Photos</h3>
+          <p>Visa photographs prepared according to the exact requirements you need.</p>
+        </div>
+      </article>
+
+      <article class="service-card service-card-wide reveal-up">
+        <div class="service-media placeholder-photo" id="svcWedding" data-label="Wedding" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Wedding Photography</h3>
+          <p>Full coverage of your wedding's key moments, from the small details to the big ones.</p>
+        </div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-media placeholder-photo" id="svcFrames" data-label="Frames" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Photo Frames</h3>
+          <p>Framing options for preserving and displaying your favourite photographs.</p>
+        </div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-media placeholder-photo" id="svcVideography" data-label="Videography" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Event Videography</h3>
+          <p>Professional video coverage for events and special occasions.</p>
+        </div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-media placeholder-photo" id="svcAlbums" data-label="Albums" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Event Albums</h3>
+          <p>Professionally designed albums built from your event's photography.</p>
+        </div>
+      </article>
+
+      <article class="service-card reveal-up">
+        <div class="service-media placeholder-photo" id="svcPortraits" data-label="Portraits" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Professional Photoshoot</h3>
+          <p>Portrait and photography sessions for individuals and every occasion.</p>
+        </div>
+      </article>
+
+      <article class="service-card service-card-wide reveal-up">
+        <div class="service-media placeholder-photo" id="svcProduct" data-label="Product" aria-hidden="true"></div>
+        <div class="service-body">
+          <h3>Product Photography</h3>
+          <p>Clean, consistent product photography for websites, catalogues and promotions.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ CATALOGUE ============ -->
+  <section class="catalogue" id="portfolio">
+    <div class="section-head section-head-light">
+      <p class="section-eyebrow">Selected work</p>
+      <h2 class="section-title reveal-up">Explore Our Work</h2>
+      <p class="section-sub reveal-up">
+        Browse the studio's work by category. Select any category to open its gallery.
+      </p>
+    </div>
+
+    <div class="catalogue-grid" id="catalogueGrid">
+      <!-- Category cards are rendered by script.js from the catalogueData list,
+           so the same 10 categories drive both the grid and their galleries. -->
+    </div>
+  </section>
+
+  <!-- ============ CATEGORY GALLERY OVERLAY ============ -->
+  <div class="gallery-overlay" id="galleryOverlay" role="dialog" aria-modal="true" aria-labelledby="galleryTitle" hidden>
+    <div class="gallery-overlay-header">
+      <button class="gallery-back" id="galleryBack">
+        <span aria-hidden="true">←</span> Back to catalogue
+      </button>
+      <h3 class="gallery-title" id="galleryTitle"></h3>
+      <button class="gallery-close" id="galleryClose" aria-label="Close gallery">&times;</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+    <div class="lightbox-frame placeholder-photo" id="lightboxFrame">
+      <img class="lightbox-img" id="lightboxImg" alt="" hidden>
+      <span class="lightbox-caption" id="lightboxCaption"></span>
+    </div>
+  </div>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="reviews" id="reviews">
+    <div class="reviews-inner-solo">
+      <div class="reviews-summary">
+        <p class="section-eyebrow">Google reviews</p>
+        <h2 class="section-title reveal-up">Rated 4.8 out of 5 on Google</h2>
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p class="reviews-copy">
+          The rating above is pulled from the studio's Google Business Profile.
+          Visit the profile directly to read customer reviews.
+        </p>
+        <a class="btn btn-outline-light" id="googleReviewsBtn"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Zoom+Digital+Photo+Studio+Ahmedabad"
+           target="_blank" rel="noopener">View Google Reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTS / OFFERINGS ============ -->
+  <section class="offerings" id="offerings">
+    <div class="section-head">
+      <p class="section-eyebrow">Take home</p>
+      <h2 class="section-title reveal-up">Studio products &amp; offerings</h2>
+    </div>
+    <div class="offerings-grid">
+      <div class="offering reveal-up">
+        <span class="offering-index">Frames</span>
+        <h3>Photo Frames</h3>
+        <p>A range of framing options for displaying your favourite prints at home or at work.</p>
+      </div>
+      <div class="offering reveal-up">
+        <span class="offering-index">Albums</span>
+        <h3>Event Albums</h3>
+        <p>Designed albums that bring an event's photography together into a single keepsake.</p>
+      </div>
+      <div class="offering reveal-up">
+        <span class="offering-index">Prints</span>
+        <h3>Professional Prints</h3>
+        <p>Quality prints from your shoot, sized and finished for framing or gifting.</p>
+      </div>
+      <div class="offering reveal-up">
+        <span class="offering-index">Services</span>
+        <h3>Photography Services</h3>
+        <p>From passport photos to full event coverage — enquire for full details and availability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-intro">
+        <p class="section-eyebrow section-eyebrow-light">Get in touch</p>
+        <h2 class="section-title section-title-light reveal-up">Ready to capture your moments?</h2>
+        <p class="contact-copy reveal-up">
+          Call the studio, message on WhatsApp, or stop by in Satellite, Ahmedabad —
+          whichever's easiest for you.
+        </p>
+        <div class="contact-cta-row reveal-up">
+          <a href="tel:+919898485252" class="btn btn-accent btn-lg">Call Now</a>
+          <a href="https://wa.me/919898485252" class="btn btn-outline-light btn-lg" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Zoom%20Digital%20Photo%20Studio%2C%20Siddhi%20Darshan%20Apartments%2C%20100%20Feet%20Rd%2C%20opposite%20Seema%20Hall%2C%20Anand%20Nagar%2C%20Satellite%2C%20Ahmedabad%2C%20Gujarat%20380015"
+             class="btn btn-outline-light btn-lg" target="_blank" rel="noopener">Get Directions</a>
+        </div>
+      </div>
+
+      <div class="contact-details">
+        <div class="contact-block">
+          <h3>Address</h3>
+          <p>111, Zoom Digital Photo Studio,<br>
+             Siddhi Darshan Apartments,<br>
+             100 Feet Rd, opposite Seema Hall,<br>
+             Anand Nagar, Satellite,<br>
+             Ahmedabad, Gujarat 380015</p>
+        </div>
+        <div class="contact-block">
+          <h3>Phone</h3>
+          <p><a href="tel:+919898485252">98984 85252</a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Opening Hours</h3>
+          <p>Monday – Saturday<br>10:00 AM – 8:30 PM</p>
+          <p>Sunday<br>10:00 AM – 1:30 PM</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-wrap">
+      <iframe
+        title="Zoom Digital Photo Studio location map"
+        src="https://www.google.com/maps?q=Zoom+Digital+Photo+Studio,+Siddhi+Darshan+Apartments,+100+Feet+Rd,+Anand+Nagar,+Satellite,+Ahmedabad,+Gujarat+380015&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+      <noscript>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Zoom+Digital+Photo+Studio+Ahmedabad">Open in Google Maps</a>
+      </noscript>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="#home" class="brand brand-footer" aria-label="Zoom Digital Photo Studio — home">
+      <span class="brand-mark" id="brandMarkFooter" aria-hidden="true">
+        <svg viewBox="0 0 44 44" width="34" height="34">
+          <circle cx="22" cy="22" r="20.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="22" cy="22" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="22" cy="22" r="8.5" class="brand-mark-dot"/>
+        </svg>
+      </span>
+      <span class="brand-text" id="brandTextFooter">
+        <span class="brand-name">Zoom</span>
+        <span class="brand-sub">Digital Photo Studio</span>
+      </span>
+      <img class="brand-logo-img brand-logo-img-sm" id="brandLogoFooter" alt="Zoom Digital Photo Studio" style="display:none;">
+    </a>
+
+    <nav aria-label="Footer">
+      <ul class="footer-nav">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-contact">
+      <a href="tel:+919898485252">98984 85252</a>
+      <a href="https://wa.me/919898485252" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Zoom Digital Photo Studio, Ahmedabad. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
