@@ -1,0 +1,3 @@
+[build]
+  base = "zoom-digital-photo-studio"
+  publish = "zoom-digital-photo-studio"
