@@ -1,0 +1,60 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Photos uploaded through the admin page are committed straight into the
+# repo here — no external storage service, no server of ours involved.
+media_folder: "assets/images/uploads"
+public_folder: "assets/images/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "catalogue"
+    label: "Catalogue Photos"
+    files:
+      - name: "catalogue-images"
+        label: "Category Photos"
+        description: "Drag photos into the category they belong to. Changes go live on the site automatically after saving."
+        file: "data/catalogue-images.json"
+        fields:
+          - label: "Wedding Photography"
+            name: "wedding-photography"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Event Photography"
+            name: "event-photography"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Corporate Events"
+            name: "corporate-events"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Outdoor Photoshoot"
+            name: "outdoor-photoshoot"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Professional Photoshoot"
+            name: "professional-photoshoot"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Photo Framing & Collage Frame"
+            name: "photo-framing-collage"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Passport & Visa Photo"
+            name: "passport-visa-photo"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Enlargement"
+            name: "enlargement"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "LED Photo Frame"
+            name: "led-photo-frame"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
+          - label: "Acrylic Frame"
+            name: "acrylic-frame"
+            widget: "list"
+            field: { label: "Photo", name: "src", widget: "image" }
