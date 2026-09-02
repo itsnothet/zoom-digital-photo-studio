@@ -1,7 +1,7 @@
 backend:
   name: github
   # Fill in your GitHub username/reponame below, e.g. "itsnothet/zoom-digital-photo-studio"
-  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
+  repo: itsnothet/zoom-digital-photo-studio
   branch: main
   # Fill in your actual Vercel site address below, e.g. "https://zoom-digital-photo-studio.vercel.app"
   base_url: https://YOUR-SITE.vercel.app
