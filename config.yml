@@ -4,7 +4,7 @@ backend:
   repo: itsnothet/zoom-digital-photo-studio
   branch: main
   # Fill in your actual Vercel site address below, e.g. "https://zoom-digital-photo-studio.vercel.app"
-  base_url: https://YOUR-SITE.vercel.app
+  base_url: https://zoom-digital-photo-studio.vercel.app
   auth_endpoint: api/auth
 
 # Photos uploaded through the admin page are committed straight into the
