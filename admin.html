@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Photo Manager — Zoom Digital Photo Studio</title>
+<style>
+  :root{
+    --ink:#141312; --paper:#F3F1ED; --crimson:#A21C2E; --line:rgba(20,19,18,.14);
+    --muted:#6E6A64;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--paper); color:var(--ink);
+  }
+  header{
+    background:var(--ink); color:#fff; padding:22px 20px; text-align:center;
+  }
+  header h1{ margin:0; font-size:1.2rem; font-weight:600; }
+  header p{ margin:6px 0 0; font-size:.85rem; color:rgba(255,255,255,.65); }
+
+  #lockScreen{
+    max-width:360px; margin:60px auto; padding:0 20px; text-align:center;
+  }
+  #lockScreen input{
+    width:100%; padding:14px; font-size:1rem; border:1px solid var(--line);
+    border-radius:4px; margin-bottom:12px;
+  }
+  #lockScreen button, .upload-btn, .save-btn{
+    width:100%; padding:14px; font-size:1rem; font-weight:600;
+    background:var(--crimson); color:#fff; border:none; border-radius:4px;
+    cursor:pointer;
+  }
+  #lockScreen .error{ color:var(--crimson); font-size:.85rem; margin-top:8px; min-height:1.2em; }
+
+  #app{ display:none; max-width:900px; margin:0 auto; padding:20px; }
+  .section-title{ font-size:1.05rem; margin:26px 0 4px; }
+  .section-title:first-child{ margin-top:0; }
+  .section-note{ margin:0 0 14px; font-size:.82rem; color:var(--muted); }
+  .carousel-controls{ display:flex; flex-wrap:wrap; align-items:center; gap:16px; padding:14px 0 4px; }
+  .carousel-toggle{ display:flex; align-items:center; gap:8px; font-size:.92rem; }
+  .carousel-speed{ display:flex; align-items:center; gap:8px; font-size:.92rem; }
+  .carousel-speed select{ padding:6px 8px; border-radius:6px; border:1px solid #ddd; font-size:.9rem; }
+  #carouselSaveBtn{ padding:8px 16px; border-radius:6px; border:none; background:#141312; color:#fff; font-size:.88rem; cursor:pointer; }
+  #carouselSaveBtn:active{ opacity:.85; }
+  .category{
+    background:#fff; border:1px solid var(--line); border-radius:6px;
+    margin-bottom:18px; overflow:hidden;
+  }
+  .category-head{
+    padding:14px 16px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--line);
+  }
+  .category-head h2{ margin:0; font-size:1rem; }
+  .category-head label{
+    font-size:.85rem; color:#fff; background:var(--crimson); padding:8px 14px;
+    border-radius:4px; cursor:pointer;
+  }
+  .category-head input[type=file]{ display:none; }
+  .photo-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+    gap:10px; padding:14px 16px;
+  }
+  .photo-tile{ position:relative; aspect-ratio:1; border-radius:4px; overflow:hidden; background:#eee; }
+  .photo-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-tile button{
+    position:absolute; top:4px; right:4px; width:24px; height:24px; border-radius:50%;
+    border:none; background:rgba(20,19,18,.75); color:#fff; font-size:1rem; line-height:1;
+    cursor:pointer;
+  }
+  .empty-msg{ padding:14px 16px; color:var(--muted); font-size:.85rem; }
+  .status{ text-align:center; padding:14px; font-size:.85rem; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Zoom Digital Photo Studio — Photo Manager</h1>
+  <p>Upload or remove any photo on the site. Changes appear on the live site right away.</p>
+</header>
+
+<div id="lockScreen">
+  <p>Enter the password to manage photos.</p>
+  <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password">
+  <button id="unlockBtn">Unlock</button>
+  <div class="error" id="lockError"></div>
+</div>
+
+<div id="app">
+  <h2 class="section-title">Services Carousel</h2>
+  <p class="section-note">Controls the auto-scrolling 3D carousel in the Services section.</p>
+  <div class="category" id="carouselSettings">
+    <div class="category-head">
+      <h2>Auto-scroll</h2>
+    </div>
+    <div class="carousel-controls">
+      <label class="carousel-toggle">
+        <input type="checkbox" id="carouselAutoplay" checked>
+        Auto-scroll sideways on its own
+      </label>
+      <label class="carousel-speed">
+        Speed
+        <select id="carouselSpeed">
+          <option value="1800">Fast (1.8s)</option>
+          <option value="3000" selected>Normal (3s)</option>
+          <option value="4500">Slow (4.5s)</option>
+        </select>
+      </label>
+      <button id="carouselSaveBtn" type="button">Save</button>
+    </div>
+  </div>
+
+  <h2 class="section-title">Website Photos</h2>
+  <p class="section-note">One photo each — hero banner, about section, and every service card. Uploading replaces whatever's there now.</p>
+  <div id="siteApp"></div>
+
+  <h2 class="section-title">Catalogue Photos</h2>
+  <p class="section-note">The portfolio galleries — add as many photos as you like per category.</p>
+  <div id="catalogueApp"></div>
+</div>
+<div class="status" id="statusMsg"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Catalogue categories — multiple photos each, shown in a gallery.
+  var CATEGORIES = [
+    { slug: "wedding-photography", title: "Wedding Photography" },
+    { slug: "event-photography", title: "Event Photography" },
+    { slug: "corporate-events", title: "Corporate Events" },
+    { slug: "outdoor-photoshoot", title: "Outdoor Photoshoot" },
+    { slug: "professional-photoshoot", title: "Professional Photoshoot" },
+    { slug: "photo-framing-collage", title: "Photo Framing & Collage Frame" },
+    { slug: "passport-visa-photo", title: "Passport & Visa Photo" },
+    { slug: "enlargement", title: "Enlargement" },
+    { slug: "led-photo-frame", title: "LED Photo Frame" },
+    { slug: "acrylic-frame", title: "Acrylic Frame" }
+  ];
+
+  // Single-photo spots elsewhere on the site — one photo each. The slug on
+  // each of these must match the matching data-slot attribute in index.html
+  // and the SITE_SLUGS list in api/site-photos.js.
+  var SITE_SLOTS = [
+    { slug: "hero-main", title: "Hero — Main Photo" },
+    { slug: "hero-side", title: "Hero — Side Photo" },
+    { slug: "about-studio", title: "About — Studio Photo" },
+    { slug: "service-passport", title: "Service Card — Passport Photos" },
+    { slug: "service-visa", title: "Service Card — Visa Photos" },
+    { slug: "service-wedding", title: "Service Card — Wedding Photography" },
+    { slug: "service-frames", title: "Service Card — Photo Frames" },
+    { slug: "service-videography", title: "Service Card — Event Videography" },
+    { slug: "service-albums", title: "Service Card — Event Albums" },
+    { slug: "service-portraits", title: "Service Card — Professional Photoshoot" },
+    { slug: "service-product", title: "Service Card — Product Photography" }
+  ];
+
+  var password = sessionStorage.getItem("adminPassword") || "";
+  var lockScreen = document.getElementById("lockScreen");
+  var app = document.getElementById("app");
+  var siteApp = document.getElementById("siteApp");
+  var catalogueApp = document.getElementById("catalogueApp");
+  var statusMsg = document.getElementById("statusMsg");
+
+  function setStatus(text) {
+    statusMsg.textContent = text || "";
+  }
+
+  function unlock() {
+    lockScreen.style.display = "none";
+    app.style.display = "block";
+    loadCarouselSettings();
+    loadSitePhotos();
+    loadCataloguePhotos();
+  }
+
+  document.getElementById("unlockBtn").addEventListener("click", function () {
+    var entered = document.getElementById("passwordInput").value;
+    if (!entered) return;
+    password = entered;
+    sessionStorage.setItem("adminPassword", password);
+    unlock();
+  });
+
+  if (password) unlock();
+
+  function handleAuthError(err) {
+    setStatus(err.message);
+    if (err.message === "Wrong password") {
+      sessionStorage.removeItem("adminPassword");
+      location.reload();
+    }
+  }
+
+  /* ---------- Services carousel settings ---------- */
+
+  function loadCarouselSettings() {
+    fetch("/api/carousel-settings")
+      .then(function (r) { return r.json(); })
+      .then(function (settings) {
+        document.getElementById("carouselAutoplay").checked = settings.autoplay !== false;
+        var speedSelect = document.getElementById("carouselSpeed");
+        var val = String(settings.intervalMs || 3000);
+        var hasOption = Array.prototype.some.call(speedSelect.options, function (o) { return o.value === val; });
+        speedSelect.value = hasOption ? val : "3000";
+      })
+      .catch(function () { /* defaults already shown */ });
+  }
+
+  document.getElementById("carouselSaveBtn").addEventListener("click", function () {
+    var autoplay = document.getElementById("carouselAutoplay").checked;
+    var intervalMs = Number(document.getElementById("carouselSpeed").value);
+    setStatus("Saving...");
+    fetch("/api/carousel-settings", {
+      method: "POST",
+      headers: {
+        "x-admin-password": password,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ autoplay: autoplay, intervalMs: intervalMs })
+    })
+      .then(function (r) {
+        if (r.status === 401) throw new Error("Wrong password");
+        if (!r.ok) throw new Error("Save failed");
+        return r.json();
+      })
+      .then(function () { setStatus("Saved."); })
+      .catch(handleAuthError);
+  });
+
+  /* ---------- Website photos (single slot each) ---------- */
+
+  function loadSitePhotos() {
+    setStatus("Loading photos...");
+    fetch("/api/site-photos")
+      .then(function (r) { return r.json(); })
+      .then(function (bySlug) {
+        renderSiteSlots(bySlug);
+        setStatus("");
+      })
+      .catch(function () { setStatus("Couldn't load photos. Try refreshing."); });
+  }
+
+  function renderSiteSlots(bySlug) {
+    siteApp.innerHTML = "";
+    SITE_SLOTS.forEach(function (slot) {
+      var url = bySlug[slot.slug];
+
+      var section = document.createElement("div");
+      section.className = "category";
+
+      var head = document.createElement("div");
+      head.className = "category-head";
+      head.innerHTML =
+        "<h2>" + slot.title + "</h2>" +
+        "<label>" + (url ? "+ Change photo" : "+ Add photo") + "<input type='file' accept='image/*'></label>";
+      section.appendChild(head);
+
+      var fileInput = head.querySelector("input[type=file]");
+      fileInput.addEventListener("change", function () {
+        if (fileInput.files[0]) uploadSitePhoto(slot.slug, fileInput.files[0]);
+      });
+
+      if (url) {
+        var grid = document.createElement("div");
+        grid.className = "photo-grid";
+        var tile = document.createElement("div");
+        tile.className = "photo-tile";
+        tile.innerHTML =
+          "<img src='" + url + "' alt=''>" +
+          "<button title='Remove'>&times;</button>";
+        tile.querySelector("button").addEventListener("click", function () {
+          deleteSitePhoto(slot.slug);
+        });
+        grid.appendChild(tile);
+        section.appendChild(grid);
+      } else {
+        var empty = document.createElement("div");
+        empty.className = "empty-msg";
+        empty.textContent = "No photo yet — placeholder shown on the site.";
+        section.appendChild(empty);
+      }
+
+      siteApp.appendChild(section);
+    });
+  }
+
+  function uploadSitePhoto(slug, file) {
+    setStatus("Uploading...");
+    fetch("/api/site-photos?slug=" + encodeURIComponent(slug) + "&filename=" + encodeURIComponent(file.name), {
+      method: "POST",
+      headers: {
+        "x-admin-password": password,
+        "Content-Type": file.type || "application/octet-stream"
+      },
+      body: file
+    })
+      .then(function (r) {
+        if (r.status === 401) throw new Error("Wrong password");
+        if (!r.ok) throw new Error("Upload failed");
+        return r.json();
+      })
+      .then(function () { loadSitePhotos(); })
+      .catch(handleAuthError);
+  }
+
+  function deleteSitePhoto(slug) {
+    if (!confirm("Remove this photo? The site will show its placeholder again.")) return;
+    setStatus("Removing...");
+    fetch("/api/site-photos?slug=" + encodeURIComponent(slug), {
+      method: "DELETE",
+      headers: { "x-admin-password": password }
+    })
+      .then(function (r) {
+        if (r.status === 401) throw new Error("Wrong password");
+        if (!r.ok) throw new Error("Delete failed");
+        return r.json();
+      })
+      .then(function () { loadSitePhotos(); })
+      .catch(handleAuthError);
+  }
+
+  /* ---------- Catalogue photos (many photos per category) ---------- */
+
+  function loadCataloguePhotos() {
+    setStatus("Loading photos...");
+    fetch("/api/photos")
+      .then(function (r) { return r.json(); })
+      .then(function (bySlug) {
+        renderCategories(bySlug);
+        setStatus("");
+      })
+      .catch(function () { setStatus("Couldn't load photos. Try refreshing."); });
+  }
+
+  function renderCategories(bySlug) {
+    catalogueApp.innerHTML = "";
+    CATEGORIES.forEach(function (cat) {
+      var photos = bySlug[cat.slug] || [];
+
+      var section = document.createElement("div");
+      section.className = "category";
+
+      var head = document.createElement("div");
+      head.className = "category-head";
+      head.innerHTML =
+        "<h2>" + cat.title + "</h2>" +
+        "<label>+ Add photo<input type='file' accept='image/*'></label>";
+      section.appendChild(head);
+
+      var fileInput = head.querySelector("input[type=file]");
+      fileInput.addEventListener("change", function () {
+        if (fileInput.files[0]) uploadCataloguePhoto(cat.slug, fileInput.files[0]);
+      });
+
+      if (photos.length) {
+        var grid = document.createElement("div");
+        grid.className = "photo-grid";
+        photos.forEach(function (photo) {
+          var tile = document.createElement("div");
+          tile.className = "photo-tile";
+          tile.innerHTML =
+            "<img src='" + photo.url + "' alt=''>" +
+            "<button title='Delete'>&times;</button>";
+          tile.querySelector("button").addEventListener("click", function () {
+            deleteCataloguePhoto(photo.url);
+          });
+          grid.appendChild(tile);
+        });
+        section.appendChild(grid);
+      } else {
+        var empty = document.createElement("div");
+        empty.className = "empty-msg";
+        empty.textContent = "No photos yet.";
+        section.appendChild(empty);
+      }
+
+      catalogueApp.appendChild(section);
+    });
+  }
+
+  function uploadCataloguePhoto(slug, file) {
+    setStatus("Uploading...");
+    fetch("/api/photos?slug=" + encodeURIComponent(slug) + "&filename=" + encodeURIComponent(file.name), {
+      method: "POST",
+      headers: {
+        "x-admin-password": password,
+        "Content-Type": file.type || "application/octet-stream"
+      },
+      body: file
+    })
+      .then(function (r) {
+        if (r.status === 401) throw new Error("Wrong password");
+        if (!r.ok) throw new Error("Upload failed");
+        return r.json();
+      })
+      .then(function () { loadCataloguePhotos(); })
+      .catch(handleAuthError);
+  }
+
+  function deleteCataloguePhoto(url) {
+    if (!confirm("Remove this photo?")) return;
+    setStatus("Removing...");
+    fetch("/api/photos?url=" + encodeURIComponent(url), {
+      method: "DELETE",
+      headers: { "x-admin-password": password }
+    })
+      .then(function (r) {
+        if (r.status === 401) throw new Error("Wrong password");
+        if (!r.ok) throw new Error("Delete failed");
+        return r.json();
+      })
+      .then(function () { loadCataloguePhotos(); })
+      .catch(function (err) { setStatus(err.message); });
+  }
+})();
+</script>
+</body>
+</html>
